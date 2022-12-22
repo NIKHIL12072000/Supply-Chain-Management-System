@@ -1,6 +1,8 @@
 package com.unstuck.supply_chain_management;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -46,6 +48,12 @@ public class HelloApplication extends Application {
         TextField emailTextField=new TextField();
         PasswordField passwordField=new PasswordField();//subclass TextField
         Button button=new Button("Login");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+            }
+        });
         GridPane gridPane=new GridPane();
         gridPane.setVgap(5);
         gridPane.setHgap(10);
