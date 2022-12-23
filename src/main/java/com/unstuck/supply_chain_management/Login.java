@@ -8,6 +8,10 @@ import java.util.*;
 
 public class Login {
 
+    public boolean isLoggedIn=false;
+    public String customerName="";
+    public  String customerEmail="";
+
     public static byte[] getSHA(String input){
         try{
             MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
@@ -30,15 +34,23 @@ public class Login {
         try {
             Database_Connections dbconn = new Database_Connections();
             ResultSet resultSet = dbconn.getQueryTable(query);
-            if (resultSet != null && resultSet.next())
+            if (resultSet != null && resultSet.next()) {
+                String first_name=resultSet.getString("first_name");
+                first_name=first_name.equals("FIRST_NAME")?" ":first_name;
+                this.customerName=resultSet.getString("last_name")+" "+first_name;
+                this.customerEmail=resultSet.getString("email");
+                isLoggedIn=true;
                 return true;
+            }
         }catch (Exception e){}
         return false;
     }
 
-    public static void main(String args[]){
-        Login login=new Login();
-        System.out.println(login.customerLogin("dachepallinikhik@gmail.com","DNikhil@1207"));
-        System.out.println(login.getEncryptedPassword("DNikhil@1207"));
+    public String getCustomerName(){
+        return customerName;
+    }
+
+    public String getCustomerEmail(){
+        return customerEmail;
     }
 }

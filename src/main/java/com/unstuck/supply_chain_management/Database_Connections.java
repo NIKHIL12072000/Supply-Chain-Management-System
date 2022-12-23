@@ -24,6 +24,17 @@ public class Database_Connections {
         return null;
     }
 
+    public int executeUpdateQuery(String query){
+        Statement statement=getStatement();
+        try{
+            return statement.executeUpdate(query);
+        }catch (Exception e){
+            System.out.println(e.fillInStackTrace());
+            System.out.println(e.getLocalizedMessage());
+        }
+        return 0;
+    }
+
     public static void main(String args[]){
         Database_Connections database_connections=new Database_Connections();
         ResultSet rs=database_connections.getQueryTable("SELECT customer_id, email, last_name, first_name FROM CUSTOMER");

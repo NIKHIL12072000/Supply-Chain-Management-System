@@ -38,11 +38,25 @@ public class Product {
                 ResultSet rs=database_connections.getQueryTable(selectedProducts);
                 while(rs.next()){
                     productList.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("price")));
-                    System.out.println(rs.getInt("product_id")+" "+rs.getString("product_name")+" "+rs.getDouble("price"));
+                    //System.out.println(rs.getInt("product_id")+" "+rs.getString("product_name")+" "+rs.getDouble("price"));
                 }
             }catch (Exception e){}
             return productList;
         }
+
+    public static ObservableList<Product> getProductByName(String productName){
+        Database_Connections database_connections=new Database_Connections();
+        ObservableList<Product> productList= FXCollections.observableArrayList();
+        String selectedProducts=String.format("SELECT * FROM PRODUCT where lower(product_name) like '%%%s%%' ",productName.toLowerCase());
+        try{
+            ResultSet rs=database_connections.getQueryTable(selectedProducts);
+            while(rs.next()){
+                productList.add(new Product(rs.getInt("product_id"),rs.getString("product_name"),rs.getDouble("price")));
+                //System.out.println(rs.getInt("product_id")+" "+rs.getString("product_name")+" "+rs.getDouble("price"));
+            }
+        }catch (Exception e){}
+        return productList;
+    }
 
         public static void main(String args[]){
             getAllProduct();
