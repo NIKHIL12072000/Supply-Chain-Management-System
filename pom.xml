@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.unstuck.supply_chain_management/com.unstuck.supply_chain_management.HelloApplication
+                                com.unstuck.supply_chain_management/com.unstuck.supply_chain_management.Supply_Chain
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

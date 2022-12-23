@@ -3,7 +3,6 @@ package com.unstuck.supply_chain_management;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,10 +15,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class Supply_Chain extends Application {
 
-    private static final int height=700, width=700, headerbar=50;
+    public static final int height=700, width=700, headerbar=50;
     Pane bodyPane=new Pane();
+    Product_Details productDetails=new Product_Details();
 
     private GridPane headerPane(){
             TextField textField=new TextField();
@@ -48,10 +48,17 @@ public class HelloApplication extends Application {
         TextField emailTextField=new TextField();
         PasswordField passwordField=new PasswordField();//subclass TextField
         Button button=new Button("Login");
+        Label buttonLabel =new Label(" ");
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
+                String email=emailTextField.getText().trim().toString();
+                String password=passwordField.getText().toString();
+                Login login=new Login();
+                if(login.customerLogin(email,password))
+                    buttonLabel.setText("You have successfully logged in");
+                else
+                    buttonLabel.setText("Your Account Doesnot exists. Please Register");
             }
         });
         GridPane gridPane=new GridPane();
@@ -64,6 +71,7 @@ public class HelloApplication extends Application {
         gridPane.add(passwordLabel,0,1);
         gridPane.add(passwordField,1,1);
         gridPane.add(button,1,2);
+        gridPane.add(buttonLabel,1,3);
         gridPane.setStyle("-fx-background-color: #ed872d");
         return gridPane;
     }
@@ -71,13 +79,13 @@ public class HelloApplication extends Application {
     public Pane createPane(){
         Pane root=new Pane();// A blank canvas where we can put the components
 
-
         bodyPane.setMinSize(width,height);
         bodyPane.setTranslateY(headerbar);
         bodyPane.getChildren().addAll(loginPageComponents());
+        bodyPane.getChildren().addAll(productDetails.getAllProducts());
 
         root.setPrefSize(width,height+headerbar);
-        root.getChildren().addAll(headerPane(),bodyPane);
+        root.getChildren().addAll(headerPane(), bodyPane);
 
         return root;
     }
